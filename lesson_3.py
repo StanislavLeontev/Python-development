@@ -1,10 +1,17 @@
+def type_logger(func):
 
-import os, shutil
+    def func_arg(*args):
+        for arg in args:
+            print(f'{func.__name__} ({arg}: {type(arg)})')
 
-for i in os.walk('my project'):
-    if 'base.html' in i[2] and len(i[0].split('\\')) >= 4:
-        path_ac = r'my project\templates{}'.format(i[0][i[0].rindex('\\'):-1])
-        try:
-            shutil.copytree(i[0],path_ac)
-        except FileExistsError:
-            print('файл уже существует')
+        return
+
+    return func_arg
+
+@type_logger
+def main(x):
+    return
+
+a = main(5, 2, 4.5, 'Hello', -5)
+
+print(a)

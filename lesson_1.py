@@ -1,18 +1,24 @@
-import os
+import re
 
-dir_names = ['my_project','settings','mainapp','adminapp','authapp']
+regex_valid = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+regex_split = re.compile(r'(.*)@(.*)')
+email = 'someone@geekbrains.ru'
+users = {}
 
-def dir_gen (d_names):
-    if not os.path.exists(d_names[0]):
-        os.makedirs(d_names[0])
-        os.chdir(d_names[0])
-        for i in d_names[1:]:
-            os.makedirs(i)
-    else:
-        os.chdir(d_names[0])
-        for i in d_names[1:]:
-            if not os.path.exists(i):
-                os.makedirs(i)
+def users_dict (eml):
+     usrs = {}
+     dct = re.findall(regex_split,eml)
+     usrs['username'] = dct[0][0]
+     usrs['domain'] = dct[0][1]
+     return usrs
+
+def valid (eml):
+     if re.fullmatch(regex_valid,eml):
+          return True
+     else:
+          raise ValueError
 
 
-dir_gen(dir_names)
+if valid(email) == True:
+     users = users_dict(email)
+     print(users)
