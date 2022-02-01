@@ -1,10 +1,18 @@
 
-class road:
-    def __init__(self,_length,_width):
-        self.length = _length
-        self.width = _width
-    def calc(self):
-        return f'{self.width * self.length * 25 * 5 / 1000} т.'
+class Clothes:
+    def __init__(self,type,size):
+        self.type = type
+        self.size = size
 
-a = road(5000,20)
-print(a.calc())
+    @property
+    def calc(self):
+        if self.type == 'пальто':
+            return round(self.size / 6.5 + 0.5 ,1)
+        elif self.type == 'костюм':
+            return round(2 * self.size + 0.3 ,1)
+
+a = Clothes('пальто',60)
+b = Clothes('костюм',60)
+
+print(a.calc)
+print(b.calc)

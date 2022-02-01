@@ -1,23 +1,47 @@
 
-class Worker:
-    def __init__(self,name,surname,position,wage,bonus):
-        self.position = position
-        self._income = {'wage':wage,'bonus':bonus}
-        self.name = name
-        self.surname = surname
+class Cell:
 
-class Position(Worker):
-    def get_full_name(self):
-        return f'{self.surname} {self.name}'
+    def __init__(self,qnt):
+        self.qnt = qnt
 
-    def get_total_income(self):
-        return self._income['wage'] + self._income['bonus']
+    def __add__(self, other):
+        return self.qnt + other.qnt
 
-    def full(self):
-        return f'Работник: {self.get_full_name()}, на должности {self.position}, получает {self.get_total_income()} руб.'
+    def __sub__(self, other):
+        if self.qnt - other.qnt <= 0:
+            return 'вычесть невозможно'
+        else:
+            return self.qnt - other.qnt
 
-worker_1 = Position('Иван','Алексеев','Инженер',20000,20000)
-worker_2 = Position('Олег','Хлебов','Бухгалтер',30000,5000)
+    def __mul__(self, other):
+        return self.qnt * other.qnt
 
-print(worker_1.full())
-print(worker_2.full())
+    def __floordiv__(self, other):
+        if self.qnt // other.qnt == 0:
+            return 'поделить невозможно'
+        else:
+            return self.qnt // other.qnt
+
+    def make_order(self,row):
+        rw = ''
+        for i in range(self.qnt // row):
+            for j in range(row):
+                rw += '*'
+            rw += '\n'
+        for i in range(self.qnt % row):
+            rw += '*'
+        return rw
+
+cell_1 = Cell(12)
+cell_2 = Cell(6)
+cell_3 = Cell(14)
+
+print(f'сложение: {cell_1 + cell_2}')
+print(f'вычитание: {cell_1 - cell_2}')
+print(f'ошибка при вычитании: {cell_1 - cell_3}')
+print(f'умножение: {cell_1 * cell_2}')
+print(f'деление: {cell_1 // cell_2}')
+print(f'ошибка при делении: {cell_1 // cell_3}')
+print(f'матрица клеток 1:\n{cell_1.make_order(4)}')
+print(f'матрица клеток 2:\n{cell_2.make_order(2)}')
+print(f'матрица клеток 3:\n{cell_3.make_order(3)}')
