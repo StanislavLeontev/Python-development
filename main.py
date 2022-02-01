@@ -1,3 +1,5 @@
+
+
 #задача 1
 
 def odd_nums(max_num):
