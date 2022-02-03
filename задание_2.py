@@ -1,18 +1,17 @@
 
-class Clothes:
-    def __init__(self,type,size):
-        self.type = type
-        self.size = size
+class Div_zero:
+    def __init__(self,num):
+        self.num = num
 
-    @property
-    def calc(self):
-        if self.type == 'пальто':
-            return round(self.size / 6.5 + 0.5 ,1)
-        elif self.type == 'костюм':
-            return round(2 * self.size + 0.3 ,1)
+    def __truediv__(self, other):
+        try:
+            return self.num / other.num
+        except ZeroDivisionError:
+            return '∞'
 
-a = Clothes('пальто',60)
-b = Clothes('костюм',60)
+a = Div_zero(4)
+b = Div_zero(2)
+c = Div_zero(0)
 
-print(a.calc)
-print(b.calc)
+print(a/b)
+print(a/c)

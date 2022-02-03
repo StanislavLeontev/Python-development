@@ -1,26 +1,21 @@
-10class Matrix:
-    def __init__(self,list):
-        self.list = list
+from re import findall
 
-    def __str__(self):
-        st = ''
-        for i in self.list:
-            st += f'{str(i)}\n'
-        return st
-    def __add__(self, other):
-        new_list = []
-        for i in range(len(self.list)):
-            row = []
-            for j in range(len(self.list[i])):
-                row.append(self.list[i][j]+other.list[i][j])
-            new_list.append(row)
-        return new_list
-matrix_1 = [[6,2,8,3],[7,1,2,5],[9,6,5,2]]
-matrix_2 = [[2,5,8,9],[7,4,9,6],[1,4,7,8]]
+class Date:
 
-a = Matrix(matrix_1)
-b = Matrix(matrix_2)
-c = Matrix(a + b)
-print(a)
-print(b)
-print(c)
+    def __init__(self,day,month,year):
+        self.date_dn = f'{day}-{month}-{year}'
+
+    @classmethod
+    def method_1(cls,date_cm):
+        return findall(r'[\d]+',date_cm)
+
+    @staticmethod
+    def method_2(mtd):
+        if int(mtd[1]) <= 12 and len(mtd[2]) <= 4:
+            print(f'{"-".join(mtd)}  дата валидна')
+        else:
+            print(f'{"-".join(mtd)}  дата не валидна')
+
+
+Date.method_2(Date.method_1('25-12-2000'))
+Date.method_2(Date.method_1('25-12-20000'))
