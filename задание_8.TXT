@@ -1,0 +1,74 @@
+#задача 1
+
+import re
+
+regex_valid = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+regex_split = re.compile(r'(.*)@(.*)')
+email = 'someone@geekbrains.ru'
+users = {}
+
+def users_dict (eml):
+     usrs = {}
+     dct = re.findall(regex_split,eml)
+     usrs['username'] = dct[0][0]
+     usrs['domain'] = dct[0][1]
+     return usrs
+
+def valid (eml):
+     if re.fullmatch(regex_valid,eml):
+          return True
+     else:
+          raise ValueError
+
+
+if valid(email) == True:
+     users = users_dict(email)
+     print(users)
+
+
+
+#Задача 3
+
+
+def type_logger(func):
+
+    def func_arg(*args):
+        for arg in args:
+            print(f'{func.__name__} ({arg}: {type(arg)})')
+
+        return
+
+    return func_arg
+
+@type_logger
+def main(x):
+    return
+
+a = main(5, 2, 4.5, 'Hello', -5)
+
+print(a)
+
+
+
+#Задача 4
+
+
+def valid(func):
+
+    def checker(x):
+        if str(x).isdigit() and x > 0:
+            return func(x)
+        raise ValueError
+
+    return checker
+
+@valid
+def calc_cube(x):
+    return x ** 3
+
+a = calc_cube(2)
+print(a)
+
+
+
+

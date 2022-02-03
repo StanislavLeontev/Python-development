@@ -1,0 +1,67 @@
+
+#задача 1
+
+import os
+
+dir_names = ['my_project','settings','mainapp','adminapp','authapp']
+
+def dir_gen (d_names):
+    if not os.path.exists(d_names[0]):
+        os.makedirs(d_names[0])
+        os.chdir(d_names[0])
+        for i in d_names[1:]:
+            os.makedirs(i)
+    else:
+        os.chdir(d_names[0])
+        for i in d_names[1:]:
+            if not os.path.exists(i):
+                os.makedirs(i)
+
+
+dir_gen(dir_names)
+
+
+
+#задача	3
+
+import os, shutil
+
+for i in os.walk('my project'):
+    if 'base.html' in i[2] and len(i[0].split('\\')) >= 4:
+        path_ac = r'my project\templates{}'.format(i[0][i[0].rindex('\\'):-1])
+        try:
+            shutil.copytree(i[0],path_ac)
+        except FileExistsError:
+            print('файл уже существует')
+
+
+
+#задача 4
+
+import os
+
+des_dir = r'C:\Users\Стасек\PycharmProjects'
+size_dict = {
+    100 : 0,
+    1000 : 0,
+    10000 : 0,
+    100000 : 0
+}
+
+for dirpath, dirnames, filenames in os.walk(des_dir):
+    os.chdir(dirpath)
+    for i in range(len(filenames)):
+        if os.stat(filenames[i]).st_size < 100:
+            size_dict[100] += 1
+        elif os.stat(filenames[i]).st_size < 1000:
+            size_dict[1000] += 1
+        elif os.stat(filenames[i]).st_size < 10000:
+            size_dict[10000] += 1
+        elif os.stat(filenames[i]).st_size < 100000:
+            size_dict[100000] += 1
+        else:
+            pass
+        
+print(size_dict)
+
+
